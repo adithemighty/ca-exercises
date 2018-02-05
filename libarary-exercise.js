@@ -28,7 +28,14 @@ class Media {
   }
 }
 
-let book = new Media("Moby Dick");
+class Book extends Media {
+  constructor(title, autor) {
+    super(title)
+    this.autor = autor;
+  }
+}
+
+let book = new Book("Moby Dick", "Herman Melville");
 book.toggleCheckOutStatus();
 book.addRating(3);
 book.addRating(6);
