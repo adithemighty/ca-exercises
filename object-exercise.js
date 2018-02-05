@@ -47,6 +47,11 @@ const menu = {
         const dessert = this.getRandomDishFromCourse("desserts")
         const meal = [appetizer.name, main.name, dessert.name]
         const price = [appetizer.price, main.price, dessert.price]
-        return `you get ${meal.join(", ")} for ${price.reduce(reducer = (accumulator, currentValue) => accumulator + currentValue)} pesos.`
+        return `You get ${meal.join(", ")} for ${price.reduce(reducer = (accumulator, currentValue) => accumulator + currentValue)} pesos.`
     }
 };
+
+menu.addDishToCourse("appetizers", "Antipasto platter", 8)
+menu.addDishToCourse("mains", "Spaghetti Bolognese", 12)
+menu.addDishToCourse("desserts", "Tiramisu", 5)
+console.log(menu.generateRandomMeal())
