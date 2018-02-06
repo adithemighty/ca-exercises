@@ -1,7 +1,7 @@
 class Media {
   constructor(title) {
     this._title = title;
-    this._checkout = false;
+    this._isCheckedOut = false;
     this._ratings = [];
   }
   get title() {
@@ -10,21 +10,25 @@ class Media {
   get ratings() {
     return this._ratings;
   }
-  get checkout() {
-    return this._checkout;
+  get isCheckedOut() {
+    return this._isCheckedOut;
   }
   addRating(rating) {
-    this._ratings.push(rating);
+    if (rating <= 5 && rating > 0) {
+      this._ratings.push(rating);
+    } else {
+      return `Please give a rating between 1 and 5`;
+    }
   }
   getAverageRating() {
     const sum = this.ratings.reduce(function(a, b) {
       return a + b;
     });
     const avg = sum / this.ratings.length;
-    return avg;
+    return avg.toFixed(1);
   }
   toggleCheckOutStatus() {
-    this._checkout = !this.checkout;
+    this._isCheckedOut = !this._isCheckedOut;
   }
 }
 
@@ -56,5 +60,56 @@ class Movie extends Media {
   }
 }
 
-let book = new Book("Moby Dick", "Herman Melville", 200);
-let movie = new Movie("Saw");
+class CD extends Media {
+  constructor(title, artist) {
+    super(title);
+    this._artist = artist;
+    this._songs = [];
+  }
+  addSong(songTitle, songLength) {
+    let song;
+    song = {
+      songTitle: songTitle,
+      songLength: `${songLength} minutes`
+    };
+    this._songs.push(song);
+  }
+  get artist() {
+    return this._artist;
+  }
+  get songs() {
+    return this._songs;
+  }
+  shuffle() {
+    let shuffledPlaylist = this._songs;
+    for (let i = shuffledPlaylist.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+        [shuffledPlaylist[i], shuffledPlaylist[j]] = [shuffledPlaylist[j], shuffledPlaylist[i]];
+    }
+    return shuffledPlaylist;
+  }
+}
+
+const historyOfEverything = new Book(
+  "A Short History of Nearly Everything",
+  "Bill Bryson",
+  544
+);
+historyOfEverything.toggleCheckOutStatus();
+historyOfEverything.addRating(4);
+historyOfEverything.addRating(5);
+console.log(historyOfEverything.addRating(6));
+console.log(historyOfEverything.getAverageRating());
+const speed = new Movie("Speed", "Jan de Bont", 116);
+speed.toggleCheckOutStatus();
+speed.addRating(1);
+speed.addRating(1);
+speed.addRating(5);
+console.log(speed.isCheckedOut);
+console.log(speed.getAverageRating());
+const bohemianRapsody = new CD("Bohemian Rapsody");
+bohemianRapsody.addSong("Bohemian Rapsody - the song 1", 4);
+bohemianRapsody.addSong("Bohemian Rapsody - the song 2", 4);
+bohemianRapsody.addSong("Bohemian Rapsody - the song 3", 4);
+bohemianRapsody.addSong("Bohemian Rapsody - the song 4", 4);
+console.log(bohemianRapsody.shuffle());
