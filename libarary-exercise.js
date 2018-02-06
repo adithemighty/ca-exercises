@@ -43,17 +43,18 @@ class Book extends Media {
 }
 
 class Movie extends Media {
-  constructor(title) {
+  constructor(title, director, runTime) {
     super(title);
+    this._director = director;
+    this._runtime = runTime;
+  }
+  get director() {
+    return this._director;
+  }
+  get runTime() {
+    return this._runTime;
   }
 }
 
 let book = new Book("Moby Dick", "Herman Melville", 200);
-book.toggleCheckOutStatus();
-book.addRating(3);
-book.addRating(6);
-let movie = new Movie("Saw")
-console.log(book.author);
-console.log(book.title);
-console.log(book.getAverageRating());
-console.log(movie.title);
+let movie = new Movie("Saw");
