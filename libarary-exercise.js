@@ -84,7 +84,10 @@ class CD extends Media {
     let shuffledPlaylist = this._songs;
     for (let i = shuffledPlaylist.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-        [shuffledPlaylist[i], shuffledPlaylist[j]] = [shuffledPlaylist[j], shuffledPlaylist[i]];
+      [shuffledPlaylist[i], shuffledPlaylist[j]] = [
+        shuffledPlaylist[j],
+        shuffledPlaylist[i]
+      ];
     }
     return shuffledPlaylist;
   }
@@ -95,21 +98,7 @@ const historyOfEverything = new Book(
   "Bill Bryson",
   544
 );
-historyOfEverything.toggleCheckOutStatus();
-historyOfEverything.addRating(4);
-historyOfEverything.addRating(5);
-console.log(historyOfEverything.addRating(6));
-console.log(historyOfEverything.getAverageRating());
+
 const speed = new Movie("Speed", "Jan de Bont", 116);
-speed.toggleCheckOutStatus();
-speed.addRating(1);
-speed.addRating(1);
-speed.addRating(5);
-console.log(speed.isCheckedOut);
-console.log(speed.getAverageRating());
+
 const bohemianRapsody = new CD("Bohemian Rapsody");
-bohemianRapsody.addSong("Bohemian Rapsody - the song 1", 4);
-bohemianRapsody.addSong("Bohemian Rapsody - the song 2", 4);
-bohemianRapsody.addSong("Bohemian Rapsody - the song 3", 4);
-bohemianRapsody.addSong("Bohemian Rapsody - the song 4", 4);
-console.log(bohemianRapsody.shuffle());
